@@ -1,21 +1,29 @@
+import os, time, csv
 import coin_price_api
 
-cny_rate = coin_price_api.get_cny_rate()
 
+def get_assets(filename, tokens):
 
-def get_total():
-    tokens = {'btc': 2.34641,
-                 'bcx': 19824.096,
-                 'sbtc': 2.6041,
-                 'eth': 24.2696,
-                 'eos': 2635.9394,
-                 'qtum': 400.9,
-                 'bch': 0.724,
-                 'bcd': 19.74}
-    total = 0
+    for token in tokens:
+        token['Date'] = time.strftime("%Y-%m-%d", time.localtime())
+        token['Time'] = time.strftime("%H:%M:%S", time.localtime())
+        token['Price'] = coin_price_api.usd_rate_of_token(token['Symbol'])
+        token['Sub Total'] = token['Price'] * token['Volume']
 
-    for token, amount in tokens.items():
-        total += coin_price_api.usd_rate_of_token(token) * amount * cny_rate
+    headers = ['Symbol', 'Price', 'Date', 'Time', 'Volume', 'Sub Total']
 
-    print("You now have %f CNY. " % total)
-    return total
+    if os.path.exists(filename):
+        print("csv file already exists...")
+        with open(filename, 'a') as f:
+            f_csv = csv.DictWriter(f, headers)
+            f_csv.writerows(tokens)
+            print("Update complete.")
+    else:
+        print("csv file does not exists...")
+        with open(filename, 'w') as f:
+            f_csv = csv.DictWriter(f, headers)
+            f_csv.writeheader()
+            f_csv.writerows(tokens)
+            print("Create file and update complete.")
+
+    return tokens
