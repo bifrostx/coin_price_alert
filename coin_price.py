@@ -14,13 +14,13 @@ def get_assets(filename, tokens):
 
     if os.path.exists(filename):
         print("csv file already exists...")
-        with open(filename, 'a') as f:
+        with open(filename, 'a', newline='') as f:
             f_csv = csv.DictWriter(f, headers)
             f_csv.writerows(tokens)
             print("Update complete.")
     else:
         print("csv file does not exists...")
-        with open(filename, 'w') as f:
+        with open(filename, 'w', newline='') as f:
             f_csv = csv.DictWriter(f, headers)
             f_csv.writeheader()
             f_csv.writerows(tokens)
