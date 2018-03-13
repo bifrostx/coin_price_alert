@@ -8,11 +8,13 @@ from visualize import generate_html
 after excute coin_price.py, the final version will be at this form:
 ['Symbol', 'Price', 'Date', 'Time', 'Volume', 'Sub Total']
 """
-tokens = [{'Symbol': 'btc', 'Volume': 2.34641},
-          {'Symbol': 'eth', 'Volume': 24.2696},
+tokens = [{'Symbol': 'bitcoin', 'Volume': 2.47},
+          {'Symbol': 'ethereum', 'Volume': 14.2296},
           {'Symbol': 'eos', 'Volume': 2635.9394},
           {'Symbol': 'qtum', 'Volume': 400.9},
-          {'Symbol': 'bch', 'Volume': 0.724},]
+          {'Symbol': 'candy', 'Volume': 228967.5575},
+          {'Symbol': 'investdigital', 'Volume': 70000.0},
+          {'Symbol': 'bitcoin-cash', 'Volume': 0.72371465},]
 
 
 if __name__ == '__main__':
